@@ -8,7 +8,7 @@ export default function Layout({
     children: React.ReactNode;
   }>) {
     return (
-    <div id="page"className="d-flex">
+    <div id="page"className="d-flex bg-secondary-subtle">
       <Sidebar />
       <div className="flex-grow-1">
       <Header />
