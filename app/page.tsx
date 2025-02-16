@@ -1,10 +1,10 @@
 import "bootstrap/dist/css/bootstrap.min.css"
-import { Header } from '../componentes/header'
-import { Sidebar } from "../componentes/sidebar"
-import {InfoCards} from"../componentes/mainInfo"
+import {Launcher} from "../componentes/inicio"
 function App() {
   return (
-   <></> 
+   <>
+    <Launcher/>
+   </> 
 
   )
 }
