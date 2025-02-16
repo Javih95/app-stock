@@ -3,26 +3,27 @@
 import { useSearchParams } from "next/navigation";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
-interface Product {
+interface Material {
   id: number;
   art: string;
+  tipo: string;
   descripcion: string;
   quantity: number;
 }
 
-interface ProductTableProps {
-  products: Product[];
+interface MaterialesTablaProps {
+  materiales: Material[];
   onEdit: (id: number) => void;
   onDelete: (id: number) => void;
 }
 
-export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) {
+export function MaterialesTabla({ materiales, onEdit, onDelete }: MaterialesTablaProps) {
   const searchParams = useSearchParams();
   const query = searchParams.get("query")?.toLowerCase() || "";
 
   // Filtrar productos por el término de búsqueda
-  const filteredProducts = products.filter((product) =>
-    product.art.toLowerCase().includes(query)
+  const filtrarMateriales = materiales.filter((material) =>
+    material.art.toLowerCase().includes(query)
   );
 
   return (
@@ -34,24 +35,26 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
             <tr>
               <th>Artículo</th>
               <th>Descripción</th>
+              <th>Tipo</th>
               <th>Cantidad</th>
               <th>Acciones</th>
             </tr>
           </thead>
           <tbody>
-            {filteredProducts.length > 0 ? (
-              filteredProducts.map((product) => (
-                <tr key={product.id}>
-                  <td>{product.art}</td>
+            {filtrarMateriales.length > 0 ? (
+              filtrarMateriales.map((material) => (
+                <tr key={material.id}>
+                  <td>{material.art}</td>
                   <td className="text-truncate" style={{ maxWidth: "200px" }}>
-                    {product.descripcion}
+                    {material.descripcion}
                   </td>
-                  <td>{product.quantity}</td>
+                  <td>{material.tipo}</td>
+                  <td>{material.quantity}</td>
                   <td className="d-flex flex-column flex-md-row gap-2">
-                    <button className="btn btn-outline-primary btn-sm" onClick={() => onEdit(product.id)}>
+                    <button className="btn btn-outline-primary btn-sm" onClick={() => onEdit(material.id)}>
                       <FaPencilAlt /> Editar
                     </button>
-                    <button className="btn btn-outline-danger btn-sm" onClick={() => onDelete(product.id)}>
+                    <button className="btn btn-outline-danger btn-sm" onClick={() => onDelete(material.id)}>
                       <FaTrash /> Eliminar
                     </button>
                   </td>
@@ -59,7 +62,7 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
               ))
             ) : (
               <tr>
-                <td colSpan={4} className="text-center">No se encontraron productos</td>
+                <td colSpan={5} className="text-center">No se encontraron productos</td>
               </tr>
             )}
           </tbody>
@@ -68,17 +71,18 @@ export function ProductTable({ products, onEdit, onDelete }: ProductTableProps) 
 
       {/* Vista en tarjetas para móviles */}
       <div className="d-block d-md-none">
-        {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <div key={product.id} className="border p-3 mb-2 rounded shadow-sm">
-              <p><strong>Artículo:</strong> {product.art}</p>
-              <p><strong>Descripción:</strong> {product.descripcion}</p>
-              <p><strong>Cantidad:</strong> {product.quantity}</p>
+        {filtrarMateriales.length > 0 ? (
+          filtrarMateriales.map((material) => (
+            <div key={material.id} className="border p-3 mb-2 rounded shadow-sm">
+              <p><strong>Artículo:</strong> {material.art}</p>
+              <p><strong>Descripción:</strong> {material.descripcion}</p>
+              <p><strong>Tipo:</strong> {material.tipo}</p>
+              <p><strong>Cantidad:</strong> {material.quantity}</p>
               <div className="d-flex flex-column gap-2">
-                <button className="btn btn-outline-primary btn-sm" onClick={() => onEdit(product.id)}>
+                <button className="btn btn-outline-primary btn-sm" onClick={() => onEdit(material.id)}>
                   <FaPencilAlt /> Editar
                 </button>
-                <button className="btn btn-outline-danger btn-sm" onClick={() => onDelete(product.id)}>
+                <button className="btn btn-outline-danger btn-sm" onClick={() => onDelete(material.id)}>
                   <FaTrash /> Eliminar
                 </button>
               </div>
