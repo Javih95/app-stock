@@ -3,7 +3,7 @@
 import { MaterialesTabla } from "../../../componentes/materiales/tabladeMateriales";
 import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Search } from "@/componentes/stock/search";
+import { Search } from "@/componentes/productos/search";
 interface Material {
   id: number;
   art: string;
@@ -26,7 +26,6 @@ export default function Page() {
   });
   const [loading, setLoading] = useState(true);
 
-  // Función para obtener los materiales desde la API
   const fetchMateriales = async () => {
     try {
       const res = await fetch("https://api-control-stock-deploy.vercel.app/materiales");
@@ -39,11 +38,10 @@ export default function Page() {
     }
   };
 
-  // Ejecutar la obtención de materiales cuando el componente se monte
   useEffect(() => {
     fetchMateriales();
-  }, []); // Solo se ejecuta una vez cuando el componente se monta
-  // Agregar nuevo material (POST)
+  }, []);
+
   const handleAddMaterial = async () => {
     try {
       const res = await fetch("https://api-control-stock-deploy.vercel.app/materiales", {
@@ -189,8 +187,6 @@ export default function Page() {
                 <button className="btn btn-primary" onClick={isEditing ? handleUpdateMaterial : handleAddMaterial}>
                   {isEditing ? "Guardar cambios" : "Guardar"}
                 </button>
-
-
               </div>
             </div>
           </div>
