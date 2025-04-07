@@ -19,12 +19,14 @@ interface MaterialesTablaProps {
 
 export function MaterialesTabla({ materiales, onEdit, onDelete }: MaterialesTablaProps) {
   const searchParams = useSearchParams();
-  const query = searchParams.get("query")?.toLowerCase() || "";
+  const query = (searchParams.get("query") ?? "").toLowerCase();
+
 
   // Filtrar productos por el término de búsqueda
-  const filtrarMateriales = materiales.filter((material) =>
-    material.art.toLowerCase().includes(query)
-  );
+  const filtrarMateriales = query
+  ? materiales.filter((material) => material.art.toLowerCase().includes(query))
+  : materiales;
+
 
   return (
     <>
