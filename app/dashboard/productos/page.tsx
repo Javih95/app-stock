@@ -129,7 +129,7 @@ export default function Page() {
   return (
     < div >
       <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
-        <h2 className="mb-0">Stock disponible</h2>
+        <h2 className="mb-0">Productos disponible</h2>
         <Search />
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
           <FaPlus /> Añadir Producto

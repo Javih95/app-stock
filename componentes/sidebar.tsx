@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const links = [
   { name: "Home", href: "/dashboard", icon: FaHome },
-  { name: "Stock", href: "/dashboard/stock", icon: FaBox },
+  { name: "Productos", href: "/dashboard/productos", icon: FaBox },
   { name: "Materiales", href: "/dashboard/materiales", icon: FaTools },
   { name: "Pedidos", href: "/dashboard/pedidos", icon: FaShoppingCart },
 ];

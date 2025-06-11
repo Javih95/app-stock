@@ -1,14 +1,7 @@
 "use client";
+import { Pedido } from "@/types/pedidos";
 
 import { useSearchParams } from "next/navigation";
-
-interface Pedido {
-  id: number;
-  cliente: string;
-  productos: string[];
-  fecha: string;
-  entregado: boolean;
-}
 
 interface PedidosProps {
   pedidos: Pedido[];
@@ -19,22 +12,12 @@ interface PedidosProps {
 export function Pedidos({ pedidos, onToggleEntrega, onCreatePedido }: PedidosProps) {
   const searchParams = useSearchParams();
   const query = searchParams.get("query")?.toLowerCase() || "";
-
-  // Filtrar pedidos según el término de búsqueda
   const filtrarPedidos = pedidos.filter((pedido) =>
     pedido.cliente.toLowerCase().includes(query)
   );
 
   return (
-    <div className="container mt-4">
-      <div className="d-flex justify-content-between mb-3">
-        <h2>Pedidos</h2>
-        <button className="btn btn-primary" onClick={onCreatePedido}>
-          Crear Pedido
-        </button>
-      </div>
-
-      {/* Tabla para pantallas grandes */}
+    <div >
       <div className="table-responsive d-none d-md-block">
         <table className="table table-striped">
           <thead className="table-dark">
@@ -53,7 +36,7 @@ export function Pedidos({ pedidos, onToggleEntrega, onCreatePedido }: PedidosPro
                   <td>{pedido.cliente}</td>
                   <td>{pedido.fecha}</td>
                   <td className="text-truncate" style={{ maxWidth: "200px" }}>
-                    {pedido.productos.join(", ")}
+                    {pedido.productos.map((p) => `${p.art} (x${p.cantidad})`).join(", ")}
                   </td>
                   <td>{pedido.entregado ? "Entregado" : "Pendiente"}</td>
                   <td>

@@ -1,4 +1,3 @@
-
 "use client";
 import { MaterialesTabla } from "../../../componentes/materiales/tabladeMateriales";
 import { useState, useEffect } from "react";
@@ -140,7 +139,7 @@ export default function Page() {
         <h2 className="mb-0">Materiales disponibles</h2>
         <Search />
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
-          <FaPlus /> Añadir Producto
+          <FaPlus /> Añadir Material
         </button>
       </div>
       {/* Modal de Bootstrap */}

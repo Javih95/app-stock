@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   const sections = [
-    { title: "Stock", path: "/dashboard/stock", bg: "bg-primary" },
+    { title: "Productos", path: "/dashboard/productos", bg: "bg-primary" },
     { title: "Materiales", path: "/dashboard/materiales", bg: "bg-success" },
     { title: "Pedidos", path: "/dashboard/pedidos", bg: "bg-warning" },
   ];
