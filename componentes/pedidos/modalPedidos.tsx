@@ -1,21 +1,4 @@
-interface Producto {
-  id: number;
-  art: string;
-  descripcion: string;
-}
-
-interface PedidoProducto {
-  art: string;
-  descripcion: string;
-  cantidad: number;
-}
-
-interface NuevoPedido {
-  clienteId: string;
-  fecha: string;
-  entregado: boolean;
-  productos: PedidoProducto[];
-}
+import { Producto,PedidoProducto,Pedido,NuevoPedido } from "@/types/pedidos";
 
 interface Props {
   productos: Producto[];

@@ -1,45 +1,29 @@
 "use client";
 import { MaterialesTabla } from "../../../componentes/materiales/tabladeMateriales";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import { Search } from "@/componentes/productos/search";
-interface Material {
-  id: number;
-  art: string;
-  descripcion: string;
-  tipo: string;
-  quantity: number;
-}
-
+import { useMateriales } from "@/hooks/useMateriales";
+import { Material } from "@/types/materiales";
+import { ModalNuevoMaterial } from "@/componentes/materiales/modalMateriales"
 export default function Page() {
-  const [materiales, setMateriales] = useState<Material[]>([]);
-  const [showModal, setShowModal] = useState(false); // Estado del modal
+
+  const [showModal, setShowModal] = useState(false);
+  const { materiales, setMateriales, loading } = useMateriales();
   const [isEditing, setIsEditing] = useState(false);
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const [newMaterial, setNewMaterial] = useState({
+    id: 0, 
     art: "",
     descripcion: "",
     tipo: "",
     quantity: 0,
   });
-  const [loading, setLoading] = useState(true);
 
-  const fetchMateriales = async () => {
-    try {
-      const res = await fetch("https://api-control-stock-deploy.vercel.app/materiales");
-      const data = await res.json();
-      setMateriales(data);
-    } catch (error) {
-      console.error("Error al obtener los materiales:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
 
-  useEffect(() => {
-    fetchMateriales();
-  }, []);
+
+
 
   const handleAddMaterial = async () => {
     try {
@@ -54,7 +38,7 @@ export default function Page() {
       const data = await res.json();
       setMateriales((prev) => [...prev, data as Material]); // Agregar material a la lista
       setShowModal(false); // Cerrar el modal
-      setNewMaterial({ art: "", descripcion: "", tipo: "", quantity: 0 }); // Resetear formulario
+      setNewMaterial({id: 0,  art: "", descripcion: "", tipo: "", quantity: 0 }); // Resetear formulario
     } catch (error) {
       console.error(error);
     }
@@ -65,6 +49,7 @@ export default function Page() {
     if (!material) return;
 
     setNewMaterial({
+      id: material.id, 
       art: material.art,
       descripcion: material.descripcion,
       tipo: material.tipo,
@@ -94,7 +79,7 @@ export default function Page() {
         prev.map((m) => (m.id === editingId ? materialFinal : m))
       );
       setShowModal(false);
-      setNewMaterial({ art: "", descripcion: "", tipo: "", quantity: 0 });
+      setNewMaterial({ id: 0, art: "", descripcion: "", tipo: "", quantity: 0 });
       setIsEditing(false);
       setEditingId(null);
     } catch (error) {
@@ -128,7 +113,7 @@ export default function Page() {
 
   const handleCloseModal = () => {
     setShowModal(false);
-    setNewMaterial({ art: "", descripcion: "", tipo: "", quantity: 0 });
+    setNewMaterial({ id: 0, art: "", descripcion: "", tipo: "", quantity: 0 });
     setIsEditing(false);
     setEditingId(null);
   };
@@ -144,52 +129,15 @@ export default function Page() {
       </div>
       {/* Modal de Bootstrap */}
       {showModal && (
-        <div className="modal fade show d-block" tabIndex={-1} style={{ background: "rgba(0,0,0,0.5)" }}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">{isEditing ? "Editar Material" : "Nuevo Material"}</h5>
-                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-              </div>
-              <div className="modal-body">
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Artículo"
-                  value={newMaterial.art}
-                  onChange={(e) => setNewMaterial({ ...newMaterial, art: e.target.value })}
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Descripción"
-                  value={newMaterial.descripcion}
-                  onChange={(e) => setNewMaterial({ ...newMaterial, descripcion: e.target.value })}
-                />
-                <input
-                  type="text"
-                  className="form-control mb-2"
-                  placeholder="Tipo"
-                  value={newMaterial.tipo}
-                  onChange={(e) => setNewMaterial({ ...newMaterial, tipo: e.target.value })}
-                />
-                <input
-                  type="number"
-                  className="form-control mb-2"
-                  placeholder="Cantidad"
-                  value={newMaterial.quantity}
-                  onChange={(e) => setNewMaterial({ ...newMaterial, quantity: Number(e.target.value) })}
-                />
-              </div>
-              <div className="modal-footer">
-                <button className="btn btn-secondary" onClick={handleCloseModal}>Cancelar</button>
-                <button className="btn btn-primary" onClick={isEditing ? handleUpdateMaterial : handleAddMaterial}>
-                  {isEditing ? "Guardar cambios" : "Guardar"}
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <ModalNuevoMaterial
+          newMaterial={newMaterial}
+          setNewMaterial={setNewMaterial}
+          isEditing={isEditing}
+          handleCloseModal={handleCloseModal}
+          handleAddMaterial={handleAddMaterial}
+          handleUpdateMaterial={handleUpdateMaterial}
+        />
+
       )}
       <div>
         <MaterialesTabla materiales={materiales} onEdit={handleEdit} onDelete={handleDelete} />
