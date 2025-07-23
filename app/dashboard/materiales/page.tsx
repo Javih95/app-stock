@@ -2,11 +2,9 @@
 import { MaterialesTabla } from "../../../componentes/materiales/tabladeMateriales";
 import { useState } from "react";
 import { FaPlus } from "react-icons/fa";
-import { Search } from "@/componentes/productos/search";
 import { useMateriales } from "@/hooks/useMateriales";
 import { Material } from "@/types/materiales";
 import { ModalNuevoMaterial } from "@/componentes/materiales/modalMateriales"
-import { Suspense } from "react";
 export default function Page() {
 
   const [showModal, setShowModal] = useState(false);
@@ -119,9 +117,6 @@ export default function Page() {
     <div>
       <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
         <h2 className="mb-0">Materiales disponibles</h2>
-        <Suspense fallback={<div className="form-control w-25">Cargando...</div>}>
-          <Search />
-        </Suspense>
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
           <FaPlus /> Añadir Material
         </button>
