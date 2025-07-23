@@ -6,8 +6,8 @@ import { Pedidos } from "@/componentes/pedidos/cardsPedidos";
 import { ModalNuevoPedido } from "@/componentes/pedidos/modalPedidos";
 import { usePedidos } from "@/hooks/usePedidos";
 import { useProductos } from "@/hooks/useProductos";
-import { crearPedido, toggleEntrega ,agregarProducto,QuitarProducto} from "@/hooks/useGestionPedidos";
-
+import { crearPedido, toggleEntrega, agregarProducto, QuitarProducto } from "@/hooks/useGestionPedidos";
+import { Suspense } from "react";
 export default function PedidosPage() {
   const [showModal, setShowModal] = useState(false);
   const { pedidos, setPedidos, loading: loadingPedidos, fetchPedidos } = usePedidos();
@@ -41,21 +41,21 @@ export default function PedidosPage() {
     crearPedido(nuevoPedido, fetchPedidos, handleCloseModal);
   };
 
-  const handleAgregarProducto=()=>{
+  const handleAgregarProducto = () => {
     agregarProducto(
       productoSeleccionado,
       cantidadSeleccionada,
       productosDisponibles,
       setNuevoPedido,
       () => {
-      setProductoSeleccionado("");
-      setCantidadSeleccionada(1);
-    })
+        setProductoSeleccionado("");
+        setCantidadSeleccionada(1);
+      })
   };
 
   const handleQuitarProducto = (index: number) => {
     QuitarProducto(
-      setNuevoPedido,index
+      setNuevoPedido, index
     )
   };
 
@@ -63,7 +63,10 @@ export default function PedidosPage() {
     <div>
       <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
         <h2 className="mb-0">Pedidos</h2>
-        <Search />
+
+        <Suspense fallback={<div className="form-control w-25">Cargando...</div>}>
+          <Search />
+        </Suspense>
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
           <FaPlus /> Añadir Pedido
         </button>

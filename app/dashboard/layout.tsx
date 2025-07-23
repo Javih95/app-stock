@@ -1,6 +1,5 @@
 import { Header } from '../../componentes/header'
 import { Sidebar } from "../../componentes/sidebar"
-import {InfoCards} from"../../componentes/mainInfo"
 import "bootstrap/dist/css/bootstrap.min.css"
 export default function Layout({
     children,

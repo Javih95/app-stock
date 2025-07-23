@@ -6,6 +6,7 @@ import { Search } from "@/componentes/productos/search";
 import { useMateriales } from "@/hooks/useMateriales";
 import { Material } from "@/types/materiales";
 import { ModalNuevoMaterial } from "@/componentes/materiales/modalMateriales"
+import { Suspense } from "react";
 export default function Page() {
 
   const [showModal, setShowModal] = useState(false);
@@ -14,7 +15,7 @@ export default function Page() {
   const [editingId, setEditingId] = useState<number | null>(null);
 
   const [newMaterial, setNewMaterial] = useState({
-    id: 0, 
+    id: 0,
     art: "",
     descripcion: "",
     tipo: "",
@@ -34,7 +35,7 @@ export default function Page() {
       const data = await res.json();
       setMateriales((prev) => [...prev, data as Material]); // Agregar material a la lista
       setShowModal(false); // Cerrar el modal
-      setNewMaterial({id: 0,  art: "", descripcion: "", tipo: "", quantity: 0 }); // Resetear formulario
+      setNewMaterial({ id: 0, art: "", descripcion: "", tipo: "", quantity: 0 }); // Resetear formulario
     } catch (error) {
       console.error(error);
     }
@@ -45,7 +46,7 @@ export default function Page() {
     if (!material) return;
 
     setNewMaterial({
-      id: material.id, 
+      id: material.id,
       art: material.art,
       descripcion: material.descripcion,
       tipo: material.tipo,
@@ -118,7 +119,9 @@ export default function Page() {
     <div>
       <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
         <h2 className="mb-0">Materiales disponibles</h2>
-        <Search />
+        <Suspense fallback={<div className="form-control w-25">Cargando...</div>}>
+          <Search />
+        </Suspense>
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
           <FaPlus /> Añadir Material
         </button>
