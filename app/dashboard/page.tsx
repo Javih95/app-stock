@@ -27,18 +27,7 @@ export default function Home() {
             </Link>
           </div>
         ))}
-
-        {/* Producción de hoy */}
-        <div className="col-md-12">
-          <div className="card border-dark shadow-lg">
-            <div className="card-body text-center">
-              <h3 className="card-title">Producción de Hoy</h3>
-              <p className="card-text">Aquí puedes ver la producción del día.</p>
-              <button className="btn btn-dark">Ver más</button>
-            </div>
-          </div>
         </div>
       </div>
-    </div>
   );
 }
