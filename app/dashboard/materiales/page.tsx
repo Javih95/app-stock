@@ -21,10 +21,6 @@ export default function Page() {
     quantity: 0,
   });
 
-
-
-
-
   const handleAddMaterial = async () => {
     try {
       const res = await fetch("https://api-control-stock-deploy.vercel.app/materiales", {

@@ -1,6 +1,6 @@
 "use client";
 
-import { FaHome, FaBox, FaTools, FaShoppingCart, FaBars } from "react-icons/fa";
+import { FaHome, FaBox, FaTools, FaShoppingCart, FaBars,FaAddressCard } from "react-icons/fa";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -12,6 +12,7 @@ const links = [
   { name: "Productos", href: "/dashboard/productos", icon: FaBox },
   { name: "Materiales", href: "/dashboard/materiales", icon: FaTools },
   { name: "Pedidos", href: "/dashboard/pedidos", icon: FaShoppingCart },
+  { name: "Clientes", href: "/dashboard/clientes", icon: FaAddressCard },
 ];
 
 export function Sidebar() {

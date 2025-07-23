@@ -1,5 +1,5 @@
-import { Producto,PedidoProducto,Pedido,NuevoPedido } from "@/types/pedidos";
-
+import { Producto, PedidoProducto, Pedido, NuevoPedido } from "@/types/pedidos";
+import { useClientes } from "@/hooks/useClientes";
 interface Props {
   productos: Producto[];
   nuevoPedido: NuevoPedido;
@@ -27,6 +27,7 @@ export function ModalNuevoPedido({
   onAgregarProducto,
   onQuitarProducto
 }: Props) {
+  const { clientes } = useClientes();
   return (
     <div className="modal fade show d-block" tabIndex={-1} style={{ background: "rgba(0,0,0,0.5)" }}>
       <div className="modal-dialog">
@@ -35,14 +36,19 @@ export function ModalNuevoPedido({
             <h5 className="modal-title">Nuevo Pedido</h5>
             <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
-          <div className="modal-body">
-            <input
-              type="number"
-              className="form-control mb-2"
-              placeholder="ID del Cliente"
+          <div className="modal-body ">
+            <select className="form-select d-flex mb-2 gap-2"
               value={nuevoPedido.clienteId}
-              onChange={(e) => setNuevoPedido({ ...nuevoPedido, clienteId: e.target.value })}
-            />
+              onChange={(e) => setNuevoPedido({ ...nuevoPedido, clienteId: (e.target.value) })}
+            >
+              <option value="">Selecciona un cliente</option>
+              {clientes.map((cliente) => (
+                <option key={cliente.id} value={cliente.id}>
+                  {cliente.nombre}
+                </option>
+              ))}
+            </select>
+
 
             <div className="d-flex mb-2 gap-2">
               <select

@@ -6,6 +6,7 @@ export default function Home() {
     { title: "Productos", path: "/dashboard/productos", bg: "bg-primary" },
     { title: "Materiales", path: "/dashboard/materiales", bg: "bg-success" },
     { title: "Pedidos", path: "/dashboard/pedidos", bg: "bg-warning" },
+    { title: "Clientes", path: "/dashboard/clientes", bg: "bg-info" },
   ];
 
   return (

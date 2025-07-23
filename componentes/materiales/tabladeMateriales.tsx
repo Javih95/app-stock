@@ -3,13 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { FaPencilAlt, FaTrash } from "react-icons/fa";
 
-interface Material {
-  id: number;
-  art: string;
-  tipo: string;
-  descripcion: string;
-  quantity: number;
-}
+import { Material } from "@/types/materiales";
 
 interface MaterialesTablaProps {
   materiales: Material[];
