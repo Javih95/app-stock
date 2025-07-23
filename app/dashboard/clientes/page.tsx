@@ -5,6 +5,8 @@ import { useClientes } from "@/hooks/useClientes";
 import { ModalNuevoCliente } from "@/componentes/clientes/modalClientes";
 import { ClientesTabla } from "@/componentes/clientes/tablaClientes";
 import { Cliente } from "@/types/cliente";
+import { Search } from "@/componentes/productos/search";
+import { Suspense } from "react";
 export default function ClientesPage() {
     const [showModal, setShowModal] = useState(false);
     const { clientes, setClientes } = useClientes();
@@ -99,6 +101,9 @@ export default function ClientesPage() {
         <div>
             <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
                 <h2 className="mb-0">Clientes registrados</h2>
+                <Suspense fallback={<div className="form-control w-25">Cargando...</div>}>
+                    <Search />
+                </Suspense>
                 <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
                     <FaPlus /> Añadir Cliente
                 </button>

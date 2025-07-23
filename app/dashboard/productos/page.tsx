@@ -2,6 +2,8 @@
 import { ProductTable } from "../../../componentes/productos/tabladeitems"
 import { useState, useEffect } from "react";
 import { FaPlus } from "react-icons/fa";
+import { Search } from "@/componentes/productos/search";
+import { Suspense } from "react";
 interface Product {
   id: number;
   art: string;
@@ -129,6 +131,9 @@ export default function Page() {
     < div >
       <div className="d-flex justify-content-between align-items-center mt-2 mb-2 p-1 w-100">
         <h2 className="mb-0">Productos disponible</h2>
+        <Suspense fallback={<div className="form-control w-25">Cargando...</div>}>
+          <Search />
+        </Suspense>
         <button className="btn btn-outline-primary btn-sm" onClick={() => setShowModal(true)}>
           <FaPlus /> Añadir Producto
         </button>

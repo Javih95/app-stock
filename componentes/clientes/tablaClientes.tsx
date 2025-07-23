@@ -12,12 +12,6 @@ interface ClientesTablaProps {
 }
 
 export function ClientesTabla({ clientes, onEdit, onDelete }: ClientesTablaProps) {
-  const searchParams = useSearchParams();
-  const query = (searchParams.get("query") ?? "").toLowerCase();
-
-  const filtrarClientes = query
-    ? clientes.filter((c) => c.nombre.toLowerCase().includes(query))
-    : clientes;
 
   return (
     <>
@@ -33,8 +27,8 @@ export function ClientesTabla({ clientes, onEdit, onDelete }: ClientesTablaProps
             </tr>
           </thead>
           <tbody>
-            {filtrarClientes.length > 0 ? (
-              filtrarClientes.map((cliente) => (
+            {clientes.length > 0 ? (
+              clientes.map((cliente) => (
                 <tr key={cliente.id}>
                   <td>{cliente.nombre}</td>
                   <td>{cliente.direccion}</td>
@@ -66,8 +60,8 @@ export function ClientesTabla({ clientes, onEdit, onDelete }: ClientesTablaProps
 
       {/* Vista móvil */}
       <div className="d-block d-md-none">
-        {filtrarClientes.length > 0 ? (
-          filtrarClientes.map((cliente) => (
+        {clientes.length > 0 ? (
+          clientes.map((cliente) => (
             <div key={cliente.id} className="border p-3 mb-2 rounded shadow-sm">
               <p><strong>Nombre:</strong> {cliente.nombre}</p>
               <p><strong>Dirección:</strong> {cliente.direccion}</p>
